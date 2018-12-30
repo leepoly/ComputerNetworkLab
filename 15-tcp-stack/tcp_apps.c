@@ -75,7 +75,7 @@ void *tcp_client(void *arg)
 	char rbuf[1001];
 	int rlen = 0;
 
-	int n = 10;
+	int n = 3;
 	for (int i = 0; i < n; i++) {
 		if (tcp_sock_write(tsk, wbuf + i, wlen - n) < 0)
 			break;

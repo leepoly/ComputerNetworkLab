@@ -10,8 +10,7 @@ struct list_head {
 #define list_empty(list) ((list)->next == (list))
 
 #define list_entry(ptr, type, member) \
-	(type *)((char *)ptr - offsetof(type, member)) 
-	//????? Why not '+'
+	(type *)((char *)ptr + offsetof(type, member))
 
 #define list_for_each_entry(pos, head, member) \
 	for (pos = list_entry((head)->next, typeof(*pos), member); \

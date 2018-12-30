@@ -120,7 +120,7 @@ void tcp_process(struct tcp_sock *tsk, struct tcp_cb *cb, char *packet)
 			} else invalid_state(tsk, cb);
 			break;
 		case TCP_SYN_SENT: //SYN_SENT -> ESTABLISHED
-			if (cb->flags == (TCP_ACK | TCP_SYN)) {
+			if (cb->flags & (TCP_ACK | TCP_SYN)) {
 				tcp_set_state(tsk, TCP_ESTABLISHED);
 				tcp_update_window_safe(tsk, cb);
        			wake_up(tsk->wait_connect);
@@ -128,7 +128,7 @@ void tcp_process(struct tcp_sock *tsk, struct tcp_cb *cb, char *packet)
 			} else invalid_state(tsk, cb);
 			break;
 		case TCP_ESTABLISHED: //ESTABLISHED -> ESTABLISHED or CLOSE_WAIT
-			if (cb->flags == (TCP_FIN | TCP_ACK)) {
+			if (cb->flags & (TCP_FIN)) { //TCP_FIN|TCP_ACK
 				tcp_set_state(tsk, TCP_CLOSE_WAIT);
         		tcp_send_control_packet(tsk, TCP_ACK);
 
@@ -140,8 +140,9 @@ void tcp_process(struct tcp_sock *tsk, struct tcp_cb *cb, char *packet)
 						write_ring_buffer(tsk->rcv_buf, cb->payload, cb->pl_len);
         				wake_up(tsk->wait_recv);
         			pthread_mutex_unlock(&tsk->rcv_buf_lock);
-        			tcp_send_control_packet(tsk, TCP_ACK);
         		}
+
+    			//tcp_send_control_packet(tsk, TCP_ACK); //todo
 			} else invalid_state(tsk, cb);
 			break;
 		case TCP_CLOSE_WAIT: //should not recv packet in CLOSE_WAIT
@@ -162,7 +163,7 @@ void tcp_process(struct tcp_sock *tsk, struct tcp_cb *cb, char *packet)
 			else invalid_state(tsk, cb);
 			break;
 		case TCP_FIN_WAIT_2: //FIN_WAIT_2 -> TIME_WAIT
-			if ((cb->ack == tsk->snd_nxt) && (cb->flags == (TCP_FIN | TCP_ACK))) {
+			if ((cb->ack == tsk->snd_nxt) && (cb->flags & (TCP_FIN | TCP_ACK))) {
 				tcp_set_state(tsk, TCP_TIME_WAIT);
         		tcp_set_timewait_timer(tsk);
         		tcp_send_control_packet(tsk, TCP_ACK);

@@ -44,7 +44,7 @@ void broadcast_packet(iface_info_t *iface, const char *packet, int len)
 	struct list_head *list = &instance->iface_list;
 	list_for_each_entry(entry, list, list) {
 		if (entry->index != iface->index) {
-			fprintf(stdout, "%d\n", entry->index);
+			//fprintf(stdout, "%d\n", entry->index);
 			iface_send_packet(entry, packet, len);
 		}
 	}

@@ -19,9 +19,6 @@ void icmp_send_packet(const char *in_pkt, int len, u8 type, u8 code, u32 src_ip,
 	struct iphdr *ip = packet_to_ip_hdr(packet);
 	struct icmphdr *icmp = (struct icmphdr *)(packet + ETHER_HDR_SIZE + 20); 
 
-	// struct icmphdr *icmp = (struct icmphdr *)(packet + ETHER_HDR_SIZE + 20); 
-	// memset(icmp + 4, 0, 4);
-	
 	//ICMP header+content
 	icmp->type = type;
 	icmp->code = code;

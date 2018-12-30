@@ -18,7 +18,7 @@ void tcp_scan_timer_list()
 
 			// only support time wait now
 			tsk = timewait_to_tcp_sock(t);
-			printf("DEBUG: tsk->parent %o %d\n", tsk->parent, tsk->ref_cnt);
+			//printf("DEBUG: tsk->parent %o %d\n", tsk->parent, tsk->ref_cnt);
 			if (! tsk->parent)
 				tcp_bind_unhash(tsk); //decrease ref_cnt by tcp_bind_hash
 			tcp_unhash(tsk); //decrease ref_cnt by tcp_hash
@@ -37,7 +37,7 @@ void tcp_set_timewait_timer(struct tcp_sock *tsk)
 	timer->timeout = TCP_TIMEWAIT_TIMEOUT;
 	list_add_tail(&timer->list, &timer_list);
 
-	printf("DEBUG: tcp_set_timewai_timer %d\n", tsk->ref_cnt);
+	//printf("DEBUG: tcp_set_timewai_timer %d\n", tsk->ref_cnt);
 	tcp_sock_inc_ref_cnt(tsk);
 }
 

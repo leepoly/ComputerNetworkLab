@@ -12,7 +12,7 @@ class TCPTopo(Topo):
         s1 = self.addSwitch('s1')
 
         # Delay: 1ms, Packet Drop Rate: 5%
-        self.addLink(h1, s1, delay='1ms', loss=5)
+        self.addLink(h1, s1, delay='1ms', loss=10)
         self.addLink(s1, h2)
 
 if __name__ == '__main__':

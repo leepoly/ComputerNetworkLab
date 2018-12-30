@@ -39,6 +39,12 @@ if __name__ == '__main__':
     h1.cmd('./disable_offloading.sh')
     h2.cmd('./disable_offloading.sh')
 
+    for h in net.get('h1', 'h2', 'b1', 'b2', 'b3'):
+        h.cmd('./disable_ipv6.sh')
+
     net.start()
+    for b  in net.get('b1', 'b2', 'b3'):
+        b.cmd('./hub-reference &')
+
     CLI(net)
     net.stop()

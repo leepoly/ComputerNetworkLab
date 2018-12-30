@@ -1,9 +1,3 @@
-1. √实现map映射的操作
-2. √实现handle_packet和broadcast 两个都参考上个实验
-3. √实现多线程老化
-4. √注意一下内存泄漏？
-
-
-疑问：
-1. list.h 里是-而不是+
-2. port mac到底是什么
+1. 实现map映射的操作
+2. 实现handle_packet和broadcast 两个都参考上个实验
+3. 实现多线程老化

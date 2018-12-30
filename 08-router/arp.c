@@ -34,11 +34,6 @@ void arp_send_request(iface_info_t *iface, u32 dst_ip)
 	char * packet = (char *)malloc(sizeof(struct ether_header) + sizeof(struct ether_arp));
 	struct ether_header *eh = (struct ether_header *)packet;
 	struct ether_arp *arp = (struct ether_arp*)packet_to_arp_hdr(packet);
-
-	// struct ether_header *eh = (struct ether_header *)malloc(sizeof(struct ether_header));
-	// struct ether_arp *arp = (struct ether_arp*)malloc(sizeof(ether_arp));
-	// char * packet = eh;
-
 	for (int i = 0; i < ETH_ALEN; i++)
 		eh->ether_dhost[i] = 0xFF;
 	memcpy(eh->ether_shost, iface->mac, sizeof(u8)*ETH_ALEN);

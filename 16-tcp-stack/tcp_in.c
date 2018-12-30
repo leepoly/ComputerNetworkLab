@@ -13,7 +13,6 @@ static inline void tcp_update_window(struct tcp_sock *tsk, struct tcp_cb *cb)
 {
 	u16 old_snd_wnd = tsk->snd_wnd;
 	tsk->snd_wnd = cb->rwnd;
-	//tsk->snd_wnd += (cb->pl_len - IP_HDR_SIZE(ip) - TCP_HDR_SIZE(tcp)); //todo: didn't adjust snd_wnd dynamically
 	if (old_snd_wnd == 0)
 		wake_up(tsk->wait_send);
 }
@@ -123,12 +122,11 @@ void tcp_process(struct tcp_sock *tsk, struct tcp_cb *cb, char *packet)
 	if (state != TCP_CLOSED && state != TCP_LISTEN) {
     	//After TCP_LISTEN, we start record seq_num
 		if (tsk->snd_una < cb->ack) tsk->snd_una = cb->ack;
-	    	//tsk->rcv_nxt = cb->seq_end;
 	    //After TCP_SYN_SENT, we start checking seq_num's validity
-	    if ((state != TCP_SYN_SENT) && (!is_tcp_seq_valid(tsk, cb))) {
+	    /*if ((state != TCP_SYN_SENT) && (!is_tcp_seq_valid(tsk, cb))) {
 	        log(ERROR, "tcp_process(): received packet with invalid seq, drop it.");
 	        return ;
-	    }
+	    }*/ //question
     }
 	switch (state) {
 		case TCP_CLOSED: //CLOSED -> X
