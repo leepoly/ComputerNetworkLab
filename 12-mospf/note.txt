@@ -1,0 +1,22 @@
+question:
+2. 第一步hello为什么发个常量的MAC就能成功发出去: 在iface_send_ip_packet_by_arp()里明明改了mac_dhost啊
+√. instance->seq_num是在查iface时+1还是在iface的邻居处+1:
+	我认为是每次调用时+1
+4. 为什么handle_mospf_hello里的packet是const char *
+5. seq_num可能从65536轮回？
+√. 如果收到lsu后链路数据库未更新，是否需要转发 updated:
+	我认为不用
+√. 转发时要改ip的saddr吗:要，2.1-2.2, 4.2-4.4
+√. h1不发送hello，r1怎么知道有h1
+
+note:
+1. HELLO_NEIGHBOR_TIMEOUT是20s不是3*5s
+2. 每个节点的每个iface都有hello_int量，是不是实际上要创建iface个send_hello线程
+
+TODO:
+1. mospf数据库条目老化线程
+
+DEBUG:
+1. send_mospf_lsu和handle_mospf_hello的锁的冲突，修改了后者的函数定义的最后一行
+2. handle_mospf_lsu里的转发部分，因为ttl变了，所以mospf_checksum也要做
+3. r1里有一个rid=1的条目

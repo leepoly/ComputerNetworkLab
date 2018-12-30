@@ -1,0 +1,22 @@
+Note:
+1. tcp_sock_connect里source_ip是第一个网卡的ip?
+2. 服务器的关闭操作真的那么重要吗?
+3. tcp_sock.c tcp_sock_set_sport()里为什么要允许另换port绑定
+4. 在什么时候释放资源？释放哪些资源？
+5. TCP_CLOSING意义
+
+Question:
+1. main()里有basename()是什么用法
+x. cb的作用，以及我需要改control_block里的吗
+x. tsk->ref_int怎么用
+
+Step:
+1. tcp状态机tcp_process() in tcp_in.c
+2. 那四个tcp_sock函数
+
+Todo:
+
+
+Debug:
+1. tcp_process里开始记录snd_una, rcv_nxt以及开始比对的时机
+2. ref_cnt的作用，以及完全的释放资源

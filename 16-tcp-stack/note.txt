@@ -1,0 +1,19 @@
+Note:
+
+Question:
+1. 什么叫带数据或SYN|FIN的包，三者并列吗
+2. fenglv舍弃了tcp_update_window_safe，在remove_ack_data里处理
+	更深的问题: 发送窗口和接受窗口的关系现在是怎样
+3. 什么时候关闭retrans_timer
+
+Step:
+1. 数据包|SYN|FIN包丢弃：发送方正常重传，不切换状态
+2. ACK包丢弃：发送方重传，接收方多次接收了，需检查数据包是否合法，是否能切换到该状态，并回复ACK
+
+Todo:
+1. √ retrans_timer
+2. send_buf
+3. recv_ofo_buf
+
+Debug:
+1. add_tail(retrans_timer)居然在init(timer_list)之前？

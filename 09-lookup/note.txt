@@ -1,0 +1,13 @@
+Debug:
+	1. int对129.0.0.0转化为负数，改成unsigned int
+	2. find要记录最近匹配的结点iface_id
+
+note:
+	1. 压缩指针：是否设计为node_arr + leaf的格式：不好，因为node_arr没有压缩指针
+
+Question:
+	1. 压缩指针后需要叶推吗，我觉得不需要了
+
+TODO:
+	1. lgd的多节点存储覆盖问题:压缩指针里也有这个bug
+	2. 全面测试 - 对拍
